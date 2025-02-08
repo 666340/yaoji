@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>教父的惊喜</title>
+<style>
+    body {
+        margin: 0;
+        overflow: hidden;
+        height: 100vh;
+        width: 100vw;
+        background-color: #000;
+        color: #fff;
+        position: relative;
+    }
+    .flying-text {
+        position: absolute;
+        font-size: 24px;
+        font-weight: bold;
+    }
+</style>
+</head>
+<body>
+
+<script>
+    const texts = [
+        "嗨嗨嗨，我是妖姬！",
+        "oi,小鬼，有点火热呢！",
+        "教父亏个人",
+        "教父牛逼",
+        "范牛逼",
+        "666666666",
+        "炸掉一中",
+        "嗨嗨嗨，我是妖姬！",
+        "oi,小鬼，有点火热呢！",
+        "教父亏个人",
+        "教父牛逼",
+        "范牛逼",
+        "666666666",
+        "炸掉一中",
+        "鸡你太美",
+        "嗨嗨嗨嗨，叫范爹",
+        "别退出呀",
+        "鸡你太美",
+        "嗨嗨嗨嗨，叫范爹",
+        "别退出呀",
+
+        // ... 您可以继续添加更多自定义文字
+    ];
+
+    const textArray = [];
+
+    // 生成不重叠的随机位置
+    function getRandomPosition(avoidPositions) {
+        let x, y;
+        let overlapping;
+        do {
+            x = Math.random() * (window.innerWidth - 200);
+            y = Math.random() * (window.innerHeight - 200);
+            overlapping = avoidPositions.some(pos => Math.abs(pos.x - x) < 50 && Math.abs(pos.y - y) < 50);
+        } while (overlapping);
+        return { x, y };
+    }
+
+    // 创建文本元素并添加到页面中
+    texts.forEach((text, index) => {
+        const span = document.createElement('span');
+        span.className = 'flying-text';
+        span.innerText = text;
+        const position = getRandomPosition(textArray.map(textElem => ({ x: textElem.offsetLeft, y: textElem.offsetTop })));
+        span.style.left = `${position.x}px`;
+        span.style.top = `${position.y}px`;
+        textArray.push(span);
+        document.body.appendChild(span);
+    });
+
+    // 让文本元素以更快的速度移动
+    function animateTexts() {
+        textArray.forEach(textElem => {
+            const newX = Math.random() * (window.innerWidth - 200);
+            const newY = Math.random() * (window.innerHeight - 200);
+            // 将transition时间调整为1秒，使移动速度加快
+            textElem.style.transition = 'left 1s ease-in-out, top 1s ease-in-out';
+            textElem.style.left = `${newX}px`;
+            textElem.style.top = `${newY}px`;
+        });
+        // 调整定时器间隔，使动画更加流畅
+        setTimeout(animateTexts, 1500); // 每1.5秒触发一次动画
+    }
+    animateTexts();
+</script>
+
+</body>
+</html>
